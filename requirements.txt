@@ -1,0 +1,16 @@
+# Data manipulation and analysis
+pandas
+numpy
+
+# Data ingestion
+yfinance
+
+# Machine Learning
+scikit-learn
+
+# Visualization
+matplotlib
+plotly
+
+# Web Framework
+Flask

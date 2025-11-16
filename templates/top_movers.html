@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Top Movers - Stock Market Analysis{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Top Movers</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title">Top Gainers</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Latest Close</th>
+                                <th>Daily Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stock in top_gainers %}
+                            <tr>
+                                <td>{{ stock.ticker }}</td>
+                                <td>{{ stock.latest_close }}</td>
+                                <td class="text-success">{{ stock.daily_change }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title">Top Losers</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Latest Close</th>
+                                <th>Daily Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stock in top_losers %}
+                            <tr>
+                                <td>{{ stock.ticker }}</td>
+                                <td>{{ stock.latest_close }}</td>
+                                <td class="text-danger">{{ stock.daily_change }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
