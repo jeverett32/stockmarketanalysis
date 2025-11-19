@@ -11,7 +11,7 @@ def plot_stock_price(df: pd.DataFrame, ticker: str):
     fig.update_layout(title=f'{ticker} Historical Adjusted Close Price',
                       xaxis_title='Date',
                       yaxis_title='Price')
-    fig.show()
+    # fig.show()
 
 def plot_technical_indicators(df: pd.DataFrame, ticker: str):
     """
@@ -34,7 +34,7 @@ def plot_technical_indicators(df: pd.DataFrame, ticker: str):
                   line=dict(color='Green', width=2, dash='dash'), row=2, col=1)
 
     fig.update_layout(title_text=f'{ticker} Technical Indicators', legend_tracegroupgap=180)
-    fig.show()
+    # fig.show()
 
 def plot_predictions(y_test: pd.Series, y_pred: pd.Series):
     """
@@ -46,7 +46,7 @@ def plot_predictions(y_test: pd.Series, y_pred: pd.Series):
     fig.update_layout(title='Model Predictions vs. Actual Prices',
                       xaxis_title='Date',
                       yaxis_title='Price')
-    fig.show()
+    # fig.show()
 
 if __name__ == '__main__':
     # Example Usage

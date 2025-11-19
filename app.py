@@ -41,9 +41,12 @@ def index():
     }
     
     market_data = {}
+    latest_date = None
     for ticker, name in market_indices.items():
         df = get_processed_data(ticker)
         if df is not None and not df.empty:
+            if latest_date is None:
+                latest_date = df.index[-1].strftime('%B %d, %Y')
             latest_close = df['close'].iloc[-1]
             previous_close = df['close'].iloc[-2]
             daily_change = (latest_close - previous_close) / previous_close * 100
@@ -62,7 +65,7 @@ def index():
                 'plot': plot_div
             }
     
-    return render_template('index.html', market_data=market_data)
+    return render_template('index.html', market_data=market_data, latest_date=latest_date)
 
 @app.route('/top_movers')
 def top_movers():
@@ -71,9 +74,12 @@ def top_movers():
     popular_stocks = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'TSLA', 'NVDA', 'JPM', 'V', 'PFE', 'DIS', 'INTC', 'BA', 'KO', 'PEP', 'MCD', 'NKE', 'WMT', 'HD', 'COST', 'AXP', 'IBM', 'CSCO', 'ORCL', 'ADBE', 'CRM', 'SAP', 'TM', 'SONY']
     
     movers_data = []
+    latest_date = None
     for ticker in popular_stocks:
         df = get_processed_data(ticker)
         if df is not None and not df.empty:
+            if latest_date is None:
+                latest_date = df.index[-1].strftime('%B %d, %Y')
             latest_close = df['close'].iloc[-1]
             previous_close = df['close'].iloc[-2]
             daily_change = (latest_close - previous_close) / previous_close * 100
@@ -88,7 +94,7 @@ def top_movers():
     top_gainers = sorted(movers_data, key=lambda x: x['change_value'], reverse=True)[:10]
     top_losers = sorted(movers_data, key=lambda x: x['change_value'])[:10]
 
-    return render_template('top_movers.html', top_gainers=top_gainers, top_losers=top_losers)
+    return render_template('top_movers.html', top_gainers=top_gainers, top_losers=top_losers, latest_date=latest_date)
 
 @app.route('/recommendations')
 def recommendations():
@@ -97,9 +103,12 @@ def recommendations():
     recommendation_stocks = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'TSLA', 'NVDA']
     
     recommendations_list = []
+    latest_date = None
     for ticker in recommendation_stocks:
         df = get_processed_data(ticker)
         if df is not None and not df.empty:
+            if latest_date is None:
+                latest_date = df.index[-1].strftime('%B %d, %Y')
             # Simple Golden Cross / Death Cross strategy
             # Buy signal: SMA_50 crosses above SMA_200
             # Sell signal: SMA_50 crosses below SMA_200
@@ -122,7 +131,7 @@ def recommendations():
                 'latest_close': f"{df['close'].iloc[-1]:.2f}"
             })
 
-    return render_template('recommendations.html', recommendations=recommendations_list)
+    return render_template('recommendations.html', recommendations=recommendations_list, latest_date=latest_date)
 
 if __name__ == '__main__':
     # Ensure data directory exists
